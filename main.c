@@ -12,10 +12,13 @@ int main()
     char str2[40] = "Goodbye";
     printf("String: %s\n", str);
     printf("Sizeof: %lu\n", sizeof(str));
-    printf("mystrlen: %d\n\n", mystrlen(str));
+    printf("mystrlen: %d, strlen: %d\n\n", mystrlen(str), strlen(str));
     printf("String 1: %s\n", str);
     printf("String 2: %s\n\n", str2);
-    printf("mystrncpy: %s\n", mystrncpy(str, str2, 7));
+    printf("mystrncpy: %s, ", mystrncpy(str, str2, 7));
+    char test1[40] = "Hello World";
+    char test2[40] = "Goodbye";
+    printf("strncpy: %s\n", strncpy(test1, test2, 7));
     printf("mystrncpy, but exceed len of src: %s\n\n", mystrncpy(str, str2, 12));
     mystrncpy(str, "Hi", 3);
     mystrncpy(str2, "World", 8);
@@ -24,11 +27,11 @@ int main()
     printf("mystrcat: %s\n\n", mystrcat(str, str2));
     printf("String 1: %s\n", str);
     printf("String 2: %s\n", str2);
-    printf("mystrcmp(str1,str2): %d\n", mystrcmp(str, str2));
-    printf("mystrcmp(str2,str1): %d\n", mystrcmp(str2, str));
-    printf("mystrcmp(str1,str1): %d\n\n", mystrcmp(str, str));
+    printf("mystrcmp(str1,str2): %d, strcmp: %d\n", mystrcmp(str, str2), strcmp(str,str2));
+    printf("mystrcmp(str2,str1): %d, strcmp: %d\n", mystrcmp(str2, str), strcmp(str2,str));
+    printf("mystrcmp(str1,str1): %d, strcmp: %d\n\n", mystrcmp(str, str), strcmp(str,str));
     printf("*str1: %p\n", &str);
-    printf("mystrchr(str1,'W'): %p\n", mystrchr(str, 'W'));
+    printf("mystrchr(str1,'W'): %p, strchr: %p\n", mystrchr(str, 'W'), strchr(str, 'W'));
     return 0;
 }
 
@@ -73,18 +76,12 @@ char *mystrcat(char *dest, char *source)
 
 int mystrcmp(char *s1, char *s2)
 {
-    int size_1 = 0;
-    int size_2 = 0;
-    int i;
-    for (i = 0; i < mystrlen(s1); i++)
-    {
-        size_1 += s1[i];
+    while (*s1==*s2){
+        if(*s1=='\0') return 0;
+        *s1++;
+        *s2++;
     }
-    for (i = 0; i < mystrlen(s2); i++)
-    {
-        size_2 += s2[i];
-    }
-    return size_1 - size_2;
+    return (*s1)-(*s2);
 }
 
 char *mystrchr(char *s, char c)
